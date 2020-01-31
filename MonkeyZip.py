@@ -17,7 +17,6 @@ class AsyncZip(threading.Thread):
 fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
-#TODO add an asynchronous timer to calculate the time used in the zip process
 #TODO get/print the original size, compression size, and crc32 value
 background = AsyncZip(fileToZip, zipFileName)
 start = timer()
