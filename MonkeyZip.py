@@ -18,6 +18,7 @@ fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
 #TODO get/print the original size, compression size, and crc32 value
+#TODO make it into an executable
 
 background = AsyncZip(fileToZip, zipFileName)
 start = timer()
