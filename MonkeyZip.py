@@ -23,7 +23,7 @@ zipFileName = input('Zipped filename:  ')
 background = AsyncZip(fileToZip, zipFileName)
 start = timer()
 background.start()
-print('The main program continues to run in the foreground.')
+print('Zipping {} to {}...'.format(fileToZip, zipFileName))
 
 background.join()
 end = timer()
