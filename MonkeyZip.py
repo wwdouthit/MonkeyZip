@@ -9,9 +9,11 @@ class AsyncZip(threading.Thread):
         self.outfile = outfile
 
     def run(self):
-        f = zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED)
-        f.write(self.infile)
-        f.close()
+        with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
+            f.write(self.infile)
+        # f = zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED)
+        # f.write(self.infile)
+        # f.close()
         print('Finished background zip of :', self.infile)
 
 fileToZip = input('File you want to zip:  ')
