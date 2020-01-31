@@ -1,5 +1,6 @@
 import threading
 import zipfile
+from os import system
 from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
@@ -11,15 +12,13 @@ class AsyncZip(threading.Thread):
     def run(self):
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
             f.write(self.infile)
-        # f = zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED)
-        # f.write(self.infile)
-        # f.close()
         print('Finished background zip of :', self.infile)
-
+system('cls')
 fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
 #TODO get/print the original size, compression size, and crc32 value
+
 background = AsyncZip(fileToZip, zipFileName)
 start = timer()
 background.start()
