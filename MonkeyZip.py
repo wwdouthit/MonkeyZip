@@ -20,7 +20,18 @@ class AsyncZip(threading.Thread):
             noun = 'file'
         else:
             noun = 'files'
-        print(f'The archive contains {count} {noun}.')
+        print(f'The archive contains {count} {noun}:\n')
+        for zippedObjectInfo in zipInfoList:
+            zippedFileName = zippedObjectInfo.filename
+            zippedFileCRC = zippedObjectInfo.CRC
+            zipUncompSize = zippedObjectInfo.file_size
+            zipCompSize = zippedObjectInfo.compress_size
+            print(f'{zippedFileName}')
+            print(f'\tCompression percentage: {1-zipCompSize/zipUncompSize * 100}%.')
+            print(f'{zippedFileName} was originally {zipUncompSize} bytes.')
+            print(f'{zippedFileName} compressed to {zipCompSize} bytes.')
+            print(f'The CRC32 hash of {zippedFileName} is {zippedFileCRC}.')
+
         
 system('cls')
 fileToZip = input('File you want to zip:  ')
