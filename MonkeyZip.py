@@ -12,7 +12,16 @@ class AsyncZip(threading.Thread):
     def run(self):
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
             f.write(self.infile)
+            zipInfoList = (f.infolist())
+            
         print('Finished background zip of :', self.infile)
+        count = len(zipInfoList)
+        if count == 1:
+            noun = 'file'
+        else:
+            noun = 'files'
+        print(f'The archive contains {count} {noun}.')
+        
 system('cls')
 fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
@@ -24,7 +33,6 @@ background = AsyncZip(fileToZip, zipFileName)
 start = timer()
 background.start()
 print('Zipping {} to {}...'.format(fileToZip, zipFileName))
-
 background.join()
 end = timer()
 print('It took {} seconds to zip the file.'.format(end - start))
