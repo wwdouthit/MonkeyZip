@@ -26,8 +26,9 @@ class AsyncZip(threading.Thread):
             zippedFileCRC = zippedObjectInfo.CRC
             zipUncompSize = zippedObjectInfo.file_size
             zipCompSize = zippedObjectInfo.compress_size
+            zipPercent = int(round((zipCompSize/zipUncompSize)*100))
             print(f'{zippedFileName}')
-            print(f'\tCompression percentage: {(1-zipCompSize/zipUncompSize) * 100}%.')
+            print(f'\tCompressed to:  {zipPercent}%.')
             print(f'{zippedFileName} was originally {zipUncompSize} bytes.')
             print(f'{zippedFileName} compressed to {zipCompSize} bytes.')
             print(f'The CRC32 hash of {zippedFileName} is {zippedFileCRC}.')
@@ -38,7 +39,6 @@ fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
 #TODO get/print the original size, compression size, and crc32 value
-    # Fix the url for the repository (still references MonkeyBrat70)
     # Round the percentage to a whole number
     # Reformat the text to indent info with category and value rather than
     #   sentences
