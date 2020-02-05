@@ -38,10 +38,11 @@ system('cls')
 fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
-#TODO get/print the original size, compression size, and crc32 value
-    # Reformat the text to indent info with category and value rather than
-    #   sentences
 #TODO implement a list of files
+    #TODO def an input function
+        # list of args as filenames
+        # test the filenames to see if they exist
+        # zip the files with AsyncZip
 #TODO  or a folder name
 #TODO make it into an executable
 
