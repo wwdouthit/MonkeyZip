@@ -38,7 +38,8 @@ fileToZip = input('File you want to zip:  ')
 zipFileName = input('Zipped filename:  ')
 
 #TODO get/print the original size, compression size, and crc32 value
-    # Fix the math for the percentage
+    # Fix the url for the repository (still references MonkeyBrat70)
+    # Round the percentage to a whole number
     # Reformat the text to indent info with category and value rather than
     #   sentences
 #TODO implement a list of files
