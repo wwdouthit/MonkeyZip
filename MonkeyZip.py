@@ -34,10 +34,17 @@ class AsyncZip(threading.Thread):
             print(f'\tOriginal size:  {zipUncompSize} bytes')
             print(f'\tCompressed size:  {zipCompSize} bytes')
             print(f'\tCRC32 hash:  {zippedFileCRC}\n')
-# TODO 1. Define an input function which will allow entry of file or files 
-# seperated by commas or spaces.  Check to see if the files exist or if the 
-# name is a folder.  Return an error if not.
+
 def getInput():
+    """Takes a user provided list of files and/or folders, as well as the name 
+    of the proposed zip archive.  
+    
+    The validated list and the zip archive name are returned from the function.
+    
+    The output of the function is a tuple with the list and the zipped archive
+    name.  Each entry in the validated list is a tuple with the name of the
+    file or folder and a boolean which identifies it as a file (False) or a 
+    folder (True)."""
     validatedInput = []
     system('cls')
     # Get input
@@ -76,10 +83,10 @@ def getInput():
 
 # TODO 4. Call the input function
 # TODO 5. Call AsyncZip on the list (even if it is only one)
-background = AsyncZip(fileToZip, zipFileName)
-start = timer()
-background.start()
-print('Zipping {} to {}...'.format(fileToZip, zipFileName))
-background.join()
-end = timer()
-print('It took {} seconds to zip the file.'.format(end - start))
+# background = AsyncZip(fileToZip, zipFileName)
+# start = timer()
+# background.start()
+# print('Zipping {} to {}...'.format(fileToZip, zipFileName))
+# background.join()
+# end = timer()
+# print('It took {} seconds to zip the file.'.format(end - start))
