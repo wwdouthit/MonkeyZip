@@ -22,7 +22,6 @@ class AsyncZip(threading.Thread):
                 else:
                     f.write(fileName)
             zipInfoList = (f.infolist())
-        print('Finished background zip.')
         count = len(zipInfoList)
         if count == 1:
             noun = 'file'
@@ -70,8 +69,8 @@ def getInput():
         elif path.isfile(name):
             validatedInput.append((name, False))
         else:
-            print(f'{name} is not the name of a file or folder.  Operation '
-                + 'aborted.')
+            print(f'\n{name} is not the name of a file or folder.  Operation '
+                + 'aborted.\n')
             sys.exit()
     return (validatedInput, zipFileName)
 
