@@ -1,8 +1,13 @@
 import threading
 import zipfile
 import sys
+
 from os import system
 from os import path
+import os
+
+from pathlib import Path
+
 from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
@@ -12,13 +17,14 @@ class AsyncZip(threading.Thread):
         self.infileTupleList = infileTupleList
         self.outfile = outfile
     def run(self):
-
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
             # Unpack the tuple list
             for tup in self.infileTupleList:
                 fileName, isFolder = tup
                 if isFolder:
-                    pass #TODO deal with this later
+                    pass#TODO do this. Possibly using pathlib
+                    #   read about it
+
                 else:
                     f.write(fileName)
             zipInfoList = (f.infolist())
@@ -74,11 +80,7 @@ def getInput():
             sys.exit()
     return (validatedInput, zipFileName)
 
-
-
-
-
-#TODO  or a folder name
+#TODO Update to accept folder names
 #TODO implement TRY blocks on the file operations
 #TODO make it into an executable
 #TODO make the executable accept commandline args
@@ -92,7 +94,7 @@ background = AsyncZip(listToZip, zippedArchiveName)
 start = timer()
 background.start()
 # TODO update this when adding folders
-print(f'Zipping {len(listToZip)} files to {zippedArchiveName}...')
+print(f'Zipping {len(listToZip)} files or folders to {zippedArchiveName}...')
 background.join()
 end = timer()
 if len(listToZip) == 1:
