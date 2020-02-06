@@ -77,22 +77,17 @@ def getInput():
 
 
 
-#TODO implement a list of files
-    #TODO def an input function
-        # list of args as filenames
-        # test the filenames to see if they exist
-        # zip the files with AsyncZip
+
 #TODO  or a folder name
 #TODO implement TRY blocks on the file operations
 #TODO make it into an executable
+#TODO make the executable accept commandline args
 
-# TODO 4. Call the input function
+# Call the input function
 zipParam = getInput()
 # Unpack the params
 listToZip, zippedArchiveName = zipParam
-# TODO 4.3 format the list for use in AsyncZip
-
-# TODO 5. Call AsyncZip on the list (even if it is only one)
+# Call AsyncZip on the list (even if it is only one)
 background = AsyncZip(listToZip, zippedArchiveName)
 start = timer()
 background.start()
