@@ -4,8 +4,9 @@ import sys
 from os import system
 from os import path
 from timeit import default_timer as timer
-#TODO 3. Take input as a list (even if there is only one.)
+
 class AsyncZip(threading.Thread):
+    """Uses ZipFile to zip up a list (even of 1) of files and folders."""
     def __init__(self, infile, outfile):
         threading.Thread.__init__(self)
         self.infile = infile
