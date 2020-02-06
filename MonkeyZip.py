@@ -7,23 +7,28 @@ from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
     """Uses ZipFile to zip up a list (even of 1) of files and folders."""
-    def __init__(self, infile, outfile):
+    def __init__(self, infileTupleList, outfile):
         threading.Thread.__init__(self)
-        self.infile = infile
+        self.infileTupleList = infileTupleList
         self.outfile = outfile
-
     def run(self):
+
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
-            f.write(self.infile)
+            # Unpack the tuple list
+            for tup in self.infileTupleList:
+                fileName, isFolder = tup
+                if isFolder:
+                    pass #TODO deal with this later
+                else:
+                    f.write(fileName)
             zipInfoList = (f.infolist())
-        #TODO 2.1 Change output text
-        print('Finished background zip of :', self.infile)
+        print('Finished background zip.')
         count = len(zipInfoList)
         if count == 1:
             noun = 'file'
         else:
             noun = 'files'
-        print(f'The archive contains {count} {noun}:\n')
+        print(f'\nThe archive contains {count} {noun}:\n')
         for zippedObjectInfo in zipInfoList:
             zippedFileName = zippedObjectInfo.filename
             zippedFileCRC = zippedObjectInfo.CRC
@@ -50,7 +55,7 @@ def getInput():
     system('cls')
     # Get input
     userRequest = input('File(s) and/or folders you want to zip (use spaces to'
-        + 'seperate filenames):  ')
+        + ' seperate filenames):  ')
     zipFileName = input('What do you want to call the archive?  ')
     # Convert input into a list
     fileList = userRequest.split()
@@ -83,11 +88,21 @@ def getInput():
 #TODO make it into an executable
 
 # TODO 4. Call the input function
+zipParam = getInput()
+# Unpack the params
+listToZip, zippedArchiveName = zipParam
+# TODO 4.3 format the list for use in AsyncZip
+
 # TODO 5. Call AsyncZip on the list (even if it is only one)
-# background = AsyncZip(fileToZip, zipFileName)
-# start = timer()
-# background.start()
-# print('Zipping {} to {}...'.format(fileToZip, zipFileName))
-# background.join()
-# end = timer()
-# print('It took {} seconds to zip the file.'.format(end - start))
+background = AsyncZip(listToZip, zippedArchiveName)
+start = timer()
+background.start()
+# TODO update this when adding folders
+print(f'Zipping {len(listToZip)} files to {zippedArchiveName}...')
+background.join()
+end = timer()
+if len(listToZip) == 1:
+    noun = 'file'
+else: 
+    noun = 'files'
+print(f'It took {end - start} seconds to zip the {noun}.')
