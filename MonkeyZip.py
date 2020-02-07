@@ -81,8 +81,7 @@ def getInput():
             sys.exit()
     return (validatedInput, zipFileName)
 
-#TODO Update to accept folder names
-#TODO implement TRY blocks on the file operations
+
 #TODO make it into an executable
 #TODO make the executable accept commandline args
 
@@ -94,7 +93,6 @@ listToZip, zippedArchiveName = zipParam
 background = AsyncZip(listToZip, zippedArchiveName)
 start = timer()
 background.start()
-# TODO update this when adding folders
 print(f'Zipping {len(listToZip)} files or folders to {zippedArchiveName}...')
 background.join()
 end = timer()
