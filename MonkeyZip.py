@@ -1,6 +1,7 @@
 import threading
 import zipfile
 import sys
+import glob
 
 from os import system
 from os import path
@@ -8,7 +9,8 @@ from os import path
 from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
-    """Uses ZipFile to zip up a list (even of 1) of files and folders."""
+    """Uses ZipFile to zip up a list (even of 1) of files and folders.
+    Empty subfolders are ignored."""
     def __init__(self, infileList, outfile):
         threading.Thread.__init__(self)
         self.infileList = infileList
@@ -17,8 +19,11 @@ class AsyncZip(threading.Thread):
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
             for item in self.infileList:
                 if path.isdir(item):
-                    pass#TODO do this. Possibly using pathlib
-                    #   read about it
+                    # Subfolder detected, add contents to self.infileList
+                    print(f'Opening folder: {item}')
+                    dirContents = glob.glob(item + '/*')
+                    for subitem in dirContents:
+                        self.infileList.append(subitem)
                 elif path.isfile(item):
                     f.write(item)
                 else:
