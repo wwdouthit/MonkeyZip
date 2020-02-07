@@ -9,21 +9,20 @@ from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
     """Uses ZipFile to zip up a list (even of 1) of files and folders."""
-    def __init__(self, infileTupleList, outfile):
+    def __init__(self, infileList, outfile):
         threading.Thread.__init__(self)
-        self.infileTupleList = infileTupleList
+        self.infileList = infileList
         self.outfile = outfile
     def run(self):
         with zipfile.ZipFile(self.outfile, 'w', zipfile.ZIP_DEFLATED) as f:
-            # Unpack the tuple list
-            for tup in self.infileTupleList:
-                fileName, isFolder = tup
-                if isFolder:
+            for item in self.infileList:
+                if path.isdir(item):
                     pass#TODO do this. Possibly using pathlib
                     #   read about it
-
+                elif path.isfile(item):
+                    f.write(item)
                 else:
-                    f.write(fileName)
+                    raise 
             zipInfoList = (f.infolist())
         count = len(zipInfoList)
         if count == 1:
@@ -64,13 +63,13 @@ def getInput():
     
     # Validate the list:
     # For each item in the list test to see if it is a file or folder and 
-    #   append to the validated list a tuple with (name, isFolder)
+    #   append to the validated list
     #   If a test fails notify the user and exit()
     for name in fileList:
         if path.isdir(name):
-            validatedInput.append((name, True))
+            validatedInput.append(name) 
         elif path.isfile(name):
-            validatedInput.append((name, False))
+            validatedInput.append(name)
         else:
             print(f'\n{name} is not the name of a file or folder.  Operation '
                 + 'aborted.\n')
