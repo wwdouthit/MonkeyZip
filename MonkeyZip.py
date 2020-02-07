@@ -22,7 +22,7 @@ class AsyncZip(threading.Thread):
                 elif path.isfile(item):
                     f.write(item)
                 else:
-                    raise 
+                    print(f'{item} is not a valid file or folder...ignoring...')  
             zipInfoList = (f.infolist())
         count = len(zipInfoList)
         if count == 1:
