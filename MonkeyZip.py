@@ -99,6 +99,17 @@ if argCount > 1:
     for name in listOfFilesOrFolders:
         print(name)
     print(f'These will be zipped to {zipFileName}')
+    background = AsyncZip(listOfFilesOrFolders, zipFileName)
+    start = timer()
+    background.start()
+    print(f'Zipping {len(listOfFilesOrFolders)} files or folders to {zipFileName}...')
+    background.join()
+    end = timer()
+    if len(listOfFilesOrFolders) == 1:
+        noun = 'file'
+    else:
+        noun = 'files'
+    print(f'It took {end - start} seconds to zip the {noun}.')
 else:
     # Call the input function
     zipParam = getInput()
