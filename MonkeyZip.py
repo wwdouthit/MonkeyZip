@@ -1,3 +1,5 @@
+"""Uses ZipFile to zip up a list (even of 1) of files and folders.
+Empty subfolders are ignored."""
 import threading
 import zipfile
 import sys
@@ -9,8 +11,6 @@ from os import path
 from timeit import default_timer as timer
 
 class AsyncZip(threading.Thread):
-    """Uses ZipFile to zip up a list (even of 1) of files and folders.
-    Empty subfolders are ignored."""
     def __init__(self, infileList, outfile):
         threading.Thread.__init__(self)
         self.infileList = infileList
