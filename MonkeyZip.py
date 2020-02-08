@@ -82,8 +82,8 @@ def getInput():
     return (validatedInput, zipFileName)
 
 
-#TODO make it into an executable
 #TODO make the executable accept commandline args
+#TODO make it into an executable
 
 # Call the input function
 zipParam = getInput()
