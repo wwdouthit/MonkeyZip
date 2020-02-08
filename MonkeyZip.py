@@ -84,20 +84,36 @@ def getInput():
 
 #TODO make the executable accept commandline args
 #TODO make it into an executable
-
-# Call the input function
-zipParam = getInput()
-# Unpack the params
-listToZip, zippedArchiveName = zipParam
-# Call AsyncZip on the list (even if it is only one)
-background = AsyncZip(listToZip, zippedArchiveName)
-start = timer()
-background.start()
-print(f'Zipping {len(listToZip)} files or folders to {zippedArchiveName}...')
-background.join()
-end = timer()
-if len(listToZip) == 1:
-    noun = 'file'
-else: 
-    noun = 'files'
-print(f'It took {end - start} seconds to zip the {noun}.')
+# Check to see if the user sent arguments from the command line
+argCount = len(sys.argv)
+if argCount > 1:
+    #TODO write this implementation for users to list files from command line.
+    #Get args from argv[1] tor argv[len -2] these are files/folders to zip
+    listOfFilesOrFolders = []
+    for index in range (1, argCount - 1):
+        listOfFilesOrFolders.append(sys.argv[index])
+    #Get argv[len -1] this is the zip archive name to be written
+    zipFileName = sys.argv[argCount - 1]
+    #TODO test output
+    print('These are the files/folders to be zipped:')
+    for name in listOfFilesOrFolders:
+        print(name)
+    print(f'These will be zipped to {zipFileName}')
+else:
+    # Call the input function
+    zipParam = getInput()
+    # Unpack the params
+    listToZip, zippedArchiveName = zipParam
+    # Call AsyncZip on the list (even if it is only one)
+    background = AsyncZip(listToZip, zippedArchiveName)
+    start = timer()
+    background.start()
+    print(f'Zipping {len(listToZip)} files or folders to {zippedArchiveName}...')
+    background.join()
+    end = timer()
+    if len(listToZip) == 1:
+        noun = 'file'
+    else: 
+        noun = 'files'
+    print(f'It took {end - start} seconds to zip the {noun}.')
+    
