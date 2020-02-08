@@ -94,11 +94,6 @@ if argCount > 1:
         listOfFilesOrFolders.append(sys.argv[index])
     #Get argv[len -1] this is the zip archive name to be written
     zipFileName = sys.argv[argCount - 1]
-    #TODO test output
-    print('These are the files/folders to be zipped:')
-    for name in listOfFilesOrFolders:
-        print(name)
-    print(f'These will be zipped to {zipFileName}')
     background = AsyncZip(listOfFilesOrFolders, zipFileName)
     start = timer()
     background.start()
