@@ -81,14 +81,10 @@ def getInput():
             sys.exit()
     return (validatedInput, zipFileName)
 
-
-#TODO make the executable accept commandline args
-#TODO make it into an executable
 # Check to see if the user sent arguments from the command line
 argCount = len(sys.argv)
 if argCount > 1:
-    #TODO write this implementation for users to list files from command line.
-    #Get args from argv[1] tor argv[len -2] these are files/folders to zip
+    #Get args from argv[1] to argv[len - 2] these are files/folders to zip
     listOfFilesOrFolders = []
     for index in range (1, argCount - 1):
         listOfFilesOrFolders.append(sys.argv[index])
