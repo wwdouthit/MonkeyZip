@@ -97,7 +97,7 @@ if argCount > 1:
     background = AsyncZip(listOfFilesOrFolders, zipFileName)
     start = timer()
     background.start()
-    print(f'Zipping {len(listOfFilesOrFolders)} files or folders to {zipFileName}...')
+    print(f'Zipping to {zipFileName}...\n')
     background.join()
     end = timer()
     if len(listOfFilesOrFolders) == 1:
