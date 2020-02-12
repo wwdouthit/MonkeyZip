@@ -8,7 +8,7 @@ import glob
 from os import system
 from os import path
 
-from timeit import default_timer as timer
+from time import time
 
 class AsyncZip(threading.Thread):
     def __init__(self, infileList, outfile):
@@ -91,11 +91,11 @@ if argCount > 1:
     #Get argv[len -1] this is the zip archive name to be written
     zipFileName = sys.argv[argCount - 1]
     background = AsyncZip(listOfFilesOrFolders, zipFileName)
-    start = timer()
+    start = time()
     background.start()
     print(f'Zipping to {zipFileName}...\n')
     background.join()
-    end = timer()
+    end = time()
     if len(listOfFilesOrFolders) == 1:
         noun = 'file'
     else:
@@ -108,11 +108,11 @@ else:
     listToZip, zippedArchiveName = zipParam
     # Call AsyncZip on the list (even if it is only one)
     background = AsyncZip(listToZip, zippedArchiveName)
-    start = timer()
+    start = time()
     background.start()
     print(f'Zipping {len(listToZip)} files or folders to {zippedArchiveName}...')
     background.join()
-    end = timer()
+    end = time()
     if len(listToZip) == 1:
         noun = 'file'
     else: 
